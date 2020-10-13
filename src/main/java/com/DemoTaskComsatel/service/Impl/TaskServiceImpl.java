@@ -11,7 +11,7 @@ import com.DemoTaskComsatel.repository.TaskRepo;
 import com.DemoTaskComsatel.service.TaskService;
 @Service
 public class TaskServiceImpl implements TaskService {
-
+	
 	
 	@Autowired
 	private TaskRepo repo;

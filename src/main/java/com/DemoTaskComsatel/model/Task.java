@@ -6,9 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
 
 
 
+@Data
 @Entity
 @Table(name="task")
 public class Task {
@@ -25,39 +27,6 @@ public class Task {
 	@Column(name = "state_task")
 	private boolean state;
 
-	public Task() {
-	}
-
-	public Task(Integer idTask, String description, boolean state) {
-	
-		this.idTask = idTask;
-		this.description = description;
-		this.state = state;
-	}
-
-	public Integer getIdTask() {
-		return idTask;
-	}
-
-	public void setIdTask(Integer idTask) {
-		this.idTask = idTask;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public boolean isState() {
-		return state;
-	}
-
-	public void setState(boolean state) {
-		this.state = state;
-	}
 	
 	
 	
