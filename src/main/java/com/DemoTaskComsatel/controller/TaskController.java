@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DemoTaskComsatel.exception.ModeloNotFoundException;
+import com.DemoTaskComsatel.facade.TaskFacade;
 import com.DemoTaskComsatel.model.Task;
 import com.DemoTaskComsatel.service.TaskService;
 
@@ -29,45 +30,49 @@ import com.DemoTaskComsatel.service.TaskService;
 @RequestMapping("/task")
 public class TaskController {
 	
-	@Autowired
+	//sin facade
+	/*@Autowired
 	private TaskService service;
+	*/
+	@Autowired
+	private TaskFacade facade;
+	
 	
 	@GetMapping
 	public ResponseEntity<List<Task>> listar() {
-		List<Task> tasks = service.list();
-		System.out.println(tasks);
+		List<Task> tasks = facade.listTask();
+		
 		return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Task> listarPorId(@PathVariable("id") Integer id) {
-		Task task = service.read(id);
-		System.out.println(task);
+		Task task = facade.ListById(id);
+		
 		return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
 	
 	@PostMapping
 	public ResponseEntity<Object> registrar(@RequestBody Task task) {
-		Task pac = service.save(task);
-		
+		facade.createTask(task);
 		
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 	
 	@PutMapping
 	public ResponseEntity<Object> modificar( @RequestBody Task task) {
-		service.update(task);
+		facade.updateTask(task);
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> eliminar(@PathVariable("id") Integer id) {
-		Task task = service.read(id);
-		System.out.println(task);
+		Task task = facade.ListById(id);
+		
 		if (task == null) {
 			throw new ModeloNotFoundException("idTask no encontrado: " + id);
 		} else {
-			service.delete(id);
+			facade.deleteTask(id);
 		}
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
